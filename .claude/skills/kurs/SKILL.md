@@ -8,9 +8,13 @@ disable-model-invocation: true
 
 # Kurs: Trauen wir uns den Autopiloten?
 
-Willkommen zum Special. In Woche 4 hast du gelernt, ein Feature mit einer **Spec** zu beschreiben und mit einer **Eval** abzunehmen. Das ging, weil ein Prototyp bei derselben Eingabe immer dasselbe tut: einmal prüfen, PASS oder FAIL, fertig.
+Willkommen zum Special.
 
-In diesem Special ist das Feature selbst eine KI. Und eine KI antwortet auf dieselbe Eingabe jedes Mal etwas anders — man nennt das **nicht-deterministisch**. Damit reicht die Eval aus Woche 4 nicht mehr. Du lernst hier, wie eine Eval für so ein Feature aussieht, warum sie so aussieht, und du probierst sie selbst aus.
+Im Spec-Eval-Pattern haben wir uns bisher angeschaut, wie wir deterministische Features beschreiben und testen lassen — Features, die bei derselben Eingabe immer dasselbe tun. Für nicht-deterministische Features klappt das nicht. Gemeint sind Features, deren Output zum Beispiel von einem Sprachmodell, einem LLM, erzeugt wird; oft heißen sie einfach AI-Features. Weil ihr Output bei jedem Aufruf anders ausfallen kann, müssen wir sie anders angehen.
+
+In diesem Special zeigen wir, wie das geht. Der Kern ist eine andere eval.md: eine, die Erwartungen an einen nicht-deterministischen Output formuliert. Statt eine Antwort einmal anzusehen und PASS oder FAIL zu vergeben, lässt sie viele Fälle mehrfach durchlaufen, zählt, wie oft jede Erwartung erfüllt ist, und legt vorher fest, ab welcher Quote wir dem Feature trauen. Wo ein Urteil nötig ist, prüft eine zweite KI mit — und ein Mensch prüft diesen Prüfer.
+
+Die Spec bleibt dabei, was sie in Woche 4 war: die Beschreibung, was das Feature tun soll. Neu sind die Eval und die Art, wie getestet wird — erst von dir, dann von einer KI. Das Ganze machst du an einem Beispiel: einem AI-Feature, das Kundenmails beantwortet.
 
 **Das Beispiel:** Die NordAntrieb GmbH (fiktiv) bekommt rund 120 Kundenmails am Tag. Die Geschäftsführung möchte, dass eine KI Standardmails irgendwann automatisch beantwortet — ein Autopilot. Noch sind wir in der Testphase, die KI schreibt nur Entwürfe, verschickt wird nichts. **Deine Rolle:** Du sollst entscheiden, ob wir uns den Autopiloten trauen.
 
