@@ -1,7 +1,6 @@
 ---
 name: kurs
-description: Startet den interaktiven Kurs zum Special „Trauen wir uns den Autopiloten?" — sechs Schritte, synchron zu den sechs Lektionen in der Kursplattform.
-disable-model-invocation: true
+description: Interaktiver Kurs zum Special über Evals für AI-Features in sechs Schritten, synchron zu den sechs Lektionen in der Kursplattform. Aufrufen mit /kurs, um das Special Schritt für Schritt durchzugehen.
 ---
 
 > Für den Agenten: Zeig diesen Kurs Schritt für Schritt und gib den Text jedes Abschnitts vollständig wieder, bis zum nächsten „Sag ‚weiter'". Dann wartest du. Nicht zusammenfassen, nicht vorgreifen.
