@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<title>Drei Messungen</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@400;700;800;900&family=Space+Grotesk:wght@400;500;600;700&family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,700;1,9..144,400;1,9..144,700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#0B0B0B; --paper:#F4EFE6; --blue:#1A4FFF; --yellow:#FFD400;
+    --rule:rgba(11,11,11,.16); --mute:rgba(11,11,11,.55);
+    --font-display:"Big Shoulders Display",Impact,sans-serif;
+    --font-serif:"Fraunces",Georgia,serif;
+    --font-sans:"Space Grotesk",-apple-system,sans-serif;
+    --font-mono:ui-monospace,"SF Mono",Menlo,monospace;
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{width:1200px;background:var(--paper);color:var(--ink);font-family:var(--font-sans);
+    -webkit-font-smoothing:antialiased;}
+  .wrap{width:1200px;padding:56px;}
+
+  .eyebrow{display:flex;align-items:center;gap:16px;font-family:var(--font-mono);
+    font-size:17px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--mute);margin-bottom:26px;}
+  .eyebrow .num{color:var(--blue);font-weight:700;}
+  .eyebrow .rule{flex:1;height:1px;background:var(--rule);}
+
+  h1{font-family:var(--font-display);font-weight:900;line-height:.94;letter-spacing:-.01em;
+    font-size:76px;margin:0 0 18px;}
+  h1 em{font-family:var(--font-serif);font-style:italic;font-weight:400;}
+  .subtitle{font-family:var(--font-sans);font-weight:500;font-size:25px;line-height:1.4;
+    color:var(--mute);max-width:80ch;margin:0 0 48px;}
+
+  .diagram{width:1088px;margin:0 auto;}
+
+  /* ---- change arrows between columns ---- */
+  .row-columns{display:flex;align-items:center;}
+  .column{flex:1 1 0;min-width:0;background:var(--paper);border:1px solid var(--ink);
+    box-shadow:6px 6px 0 var(--ink);padding:26px 26px 22px;display:flex;flex-direction:column;
+    gap:18px;align-self:flex-start;}
+
+  .col-head{display:flex;align-items:center;gap:12px;}
+  .col-num{font-family:var(--font-mono);font-weight:700;font-size:16px;color:var(--paper);
+    background:var(--ink);padding:6px 11px;letter-spacing:.04em;}
+  .col-head h2{font-family:var(--font-display);font-weight:800;font-size:30px;margin:0;letter-spacing:-.005em;}
+
+  .kpi{padding-top:4px;}
+  .kpi-tag{display:flex;align-items:baseline;gap:7px;font-family:var(--font-mono);margin-bottom:3px;}
+  .kpi-tag .tag{font-weight:700;font-size:14px;letter-spacing:.08em;text-transform:uppercase;color:var(--blue);}
+  .kpi-tag .crit{font-size:14px;color:var(--ink);font-weight:500;}
+  .kpi-threshold{font-family:var(--font-mono);font-size:13px;color:var(--mute);margin-bottom:8px;}
+  .kpi-value-row{display:flex;align-items:center;gap:12px;}
+  .kpi-value{font-family:var(--font-display);font-weight:800;font-size:46px;line-height:1;color:var(--ink);
+    letter-spacing:-.01em;}
+  .kpi-mark{flex-shrink:0;}
+  .kpi-mark.check{color:var(--blue);}
+  .kpi-mark.cross{color:var(--ink);}
+  .kpi-note{display:block;font-family:var(--font-mono);font-style:italic;font-size:13px;color:var(--mute);
+    margin-top:4px;}
+
+  .kpi-rest{font-family:var(--font-mono);font-size:13px;color:var(--mute);padding-top:14px;
+    border-top:1px solid var(--rule);}
+
+  .interpret{font-family:var(--font-serif);font-style:italic;font-weight:400;font-size:18px;
+    color:var(--ink);line-height:1.38;margin:0;padding-top:2px;}
+
+  .change-arrow{flex:0 0 124px;display:flex;flex-direction:column;align-items:center;
+    justify-content:center;gap:9px;padding:0 8px;align-self:center;}
+  .change-arrow .glyph{font-size:32px;color:var(--blue);line-height:1;}
+  .change-arrow .label{font-family:var(--font-sans);font-weight:700;font-size:16px;color:var(--ink);
+    text-align:center;line-height:1.24;}
+  .change-arrow .sub{font-family:var(--font-mono);font-size:12.5px;color:var(--mute);text-align:center;
+    line-height:1.3;}
+
+  .final-box{border:2px solid var(--ink);background:var(--paper);padding:34px 40px;text-align:center;
+    margin:44px auto 0;max-width:1088px;}
+  .final-icon{color:var(--blue);margin-bottom:14px;}
+  .final-headline{font-family:var(--font-display);font-weight:800;font-size:33px;margin:0 0 10px;
+    letter-spacing:-.005em;}
+  .final-sub{font-family:var(--font-sans);font-weight:500;font-size:19px;color:var(--mute);margin:0;
+    line-height:1.42;}
+
+  footer{margin-top:48px;padding-top:18px;border-top:1px solid var(--rule);
+    font-family:var(--font-mono);font-size:15px;letter-spacing:.08em;text-transform:uppercase;color:var(--mute);
+    text-align:center;}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="eyebrow"><span class="num">Special</span><span class="rule"></span><span>Evals für KI-Features</span></div>
+
+  <h1>Drei <em>Messungen</em></h1>
+  <p class="subtitle">Immer genau eine Änderung — so sieht man, was gewirkt hat, und was es gekostet hat.</p>
+
+  <div class="diagram">
+
+    <div class="row-columns">
+
+      <div class="column">
+        <div class="col-head"><span class="col-num">1</span><h2>Messung 1</h2></div>
+
+        <div class="kpi">
+          <div class="kpi-tag"><span class="tag">E4</span><span class="crit">Keine erfundene Zusage</span></div>
+          <div class="kpi-threshold">Schwelle: keine Ausnahme</div>
+          <div class="kpi-value-row">
+            <span class="kpi-value">14 von 15</span>
+            <svg class="kpi-mark cross" viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path d="M5 5L19 19M19 5L5 19" fill="none" stroke="currentColor" stroke-width="3.4" stroke-linecap="round"/></svg>
+          </div>
+        </div>
+
+        <div class="kpi">
+          <div class="kpi-tag"><span class="tag">E3</span><span class="crit">Keine unnötige Eskalation</span></div>
+          <div class="kpi-threshold">Schwelle: höchstens 1 Ausnahme</div>
+          <div class="kpi-value-row">
+            <span class="kpi-value">15 von 15</span>
+            <svg class="kpi-mark check" viewBox="0 0 24 24" width="26" height="26" aria-hidden="true"><path d="M4 12.5L9.5 18L20 6" fill="none" stroke="currentColor" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </div>
+        </div>
+
+        <div class="kpi-rest">E1, E2, E5, E6: ohne Fehler</div>
+
+        <p class="interpret">Der Prüfer findet 1 Fehler — und übersieht 5.</p>
+      </div>
+
+      <div class="change-arrow">
+        <span class="glyph">→</span>
+        <span class="label">Prüffrage E4 geschärft</span>
+        <span class="sub">Messgerät eichen · dieselben 24 Antworten</span>
+      </div>
+
+      <div class="column">
+        <div class="col-head"><span class="col-num">2</span><h2>Messung 2</h2></div>
+
+        <div class="kpi">
+          <div class="kpi-tag"><span class="tag">E4</span><span class="crit">Keine erfundene Zusage</span></div>
+          <div class="kpi-threshold">Schwelle: keine Ausnahme</div>
+          <div class="kpi-value-row">
+            <span class="kpi-value">9 von 15</span>
+            <svg class="kpi-mark cross" viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path d="M5 5L19 19M19 5L5 19" fill="none" stroke="currentColor" stroke-width="3.4" stroke-linecap="round"/></svg>
+          </div>
+        </div>
+
+        <div class="kpi">
+          <div class="kpi-tag"><span class="tag">E3</span><span class="crit">Keine unnötige Eskalation</span></div>
+          <div class="kpi-threshold">Schwelle: höchstens 1 Ausnahme</div>
+          <div class="kpi-value-row">
+            <span class="kpi-value">15 von 15</span>
+            <svg class="kpi-mark check" viewBox="0 0 24 24" width="26" height="26" aria-hidden="true"><path d="M4 12.5L9.5 18L20 6" fill="none" stroke="currentColor" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </div>
+        </div>
+
+        <div class="kpi-rest">E1, E2, E5, E6: ohne Fehler</div>
+
+        <p class="interpret">Gleiche Antworten, ehrlich gemessen: 6 Fehler.</p>
+      </div>
+
+      <div class="change-arrow">
+        <span class="glyph">→</span>
+        <span class="label">Regel 8 geschärft</span>
+        <span class="sub">Feature ändern · neue Antworten</span>
+      </div>
+
+      <div class="column">
+        <div class="col-head"><span class="col-num">3</span><h2>Messung 3</h2></div>
+
+        <div class="kpi">
+          <div class="kpi-tag"><span class="tag">E4</span><span class="crit">Keine erfundene Zusage</span></div>
+          <div class="kpi-threshold">Schwelle: keine Ausnahme</div>
+          <div class="kpi-value-row">
+            <span class="kpi-value">14 von 14</span>
+            <svg class="kpi-mark check" viewBox="0 0 24 24" width="26" height="26" aria-hidden="true"><path d="M4 12.5L9.5 18L20 6" fill="none" stroke="currentColor" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </div>
+        </div>
+
+        <div class="kpi">
+          <div class="kpi-tag"><span class="tag">E3</span><span class="crit">Keine unnötige Eskalation</span></div>
+          <div class="kpi-threshold">Schwelle: höchstens 1 Ausnahme</div>
+          <div class="kpi-value-row">
+            <span class="kpi-value">14 von 15</span>
+            <svg class="kpi-mark check" viewBox="0 0 24 24" width="26" height="26" aria-hidden="true"><path d="M4 12.5L9.5 18L20 6" fill="none" stroke="currentColor" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </div>
+          <span class="kpi-note">genau auf der Grenze</span>
+        </div>
+
+        <div class="kpi-rest">E1, E2, E5, E6: ohne Fehler</div>
+
+        <p class="interpret">Keine kleinen Zusagen mehr — dafür eine Eskalation zu viel.</p>
+      </div>
+
+    </div>
+
+    <div class="final-box">
+      <svg class="final-icon" viewBox="0 0 24 24" width="34" height="34" aria-hidden="true"><path d="M4 12.5L9.5 18L20 6" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      <p class="final-headline">Alle Schwellen erreicht — jetzt entscheidet der Mensch.</p>
+      <p class="final-sub">Die Zahlen erlauben den Autopiloten. Ob du ihn einschaltest, ist eine Produktentscheidung.</p>
+    </div>
+
+  </div>
+
+  <footer>überproduct · AI-Augmented PM</footer>
+
+</div>
+</body>
+</html>
