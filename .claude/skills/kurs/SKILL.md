@@ -6,6 +6,18 @@ allowed-tools: Read, Write, Glob
 
 # Kurs: Trauen wir uns den Autopiloten?
 
+## Beim Start — deine erste Nachricht
+
+Beginne nie direkt mit Schritt 1. Wenn der Kurs aufgerufen wird, ist deine erste Nachricht der Einstieg, und danach wartest du:
+
+1. **Worum es geht**, in zwei, drei Sätzen (Abschnitt unten): NordAntrieb (fiktiv), der Autopilot als Ziel, die Testphase, die Frage „Trauen wir uns?".
+2. **Wie der Kurs funktioniert:** vier Schritte, jeder entspricht einer Lektion in der Kursplattform; Navigation mit „weiter", „Schritt 3", „zurück", „Übersicht".
+3. **Wie die Fragen gemeint sind.** Erklär ausdrücklich: In jedem Schritt kommt an einer Stelle eine Frage, bevor aufgelöst wird. Das ist kein Test, es gibt keine Note. Die Teilnehmenden bilden sich zuerst ein eigenes Urteil und halten es fest, weil die Einsicht jedes Schritts genau im Unterschied zwischen ihrem ersten Eindruck und der Auflösung liegt. Wo es einen Maßstab gibt, meist die Service-Regeln, steht er bei der Frage dabei.
+4. **Zeitrahmen** in einem Satz.
+5. **Die vier Schritte** als kurze Liste.
+
+Schließ mit der Frage, ob es losgehen kann. Erst auf „los", „weiter" oder etwas Gleichbedeutendes beginnt Schritt 1 — und zwar mit dem Abschnitt „Der Fall", nicht mit der ersten Antwort.
+
 ## Worum es geht
 
 NordAntrieb GmbH ist eine fiktive Firma, eigens für dieses Special erfunden: rund 120 Kundenmails am Tag, und die Geschäftsführung möchte im Ziel einen Autopiloten, der Standardanfragen automatisch beantwortet. Aktuell läuft eine Testphase — das Feature schreibt nur Entwürfe, verschickt wird nichts. Die Frage, um die sich dieser Kurs dreht, ist die der Geschäftsführung: Trauen wir uns, irgendwann auf automatischen Versand umzustellen? Die Kriterien dafür stehen in **feature/eval.md**.
@@ -34,7 +46,7 @@ Dieser Kurs ist die interaktive Fassung von vier Lektionen aus der Kursplattform
 Diese Regeln gelten für den ganzen Kurs, nicht nur für einzelne Schritte:
 
 1. **Immer nur ein Schritt auf einmal.** Führe nie zwei Schritte in einer Antwort aus. Schließe jeden Schritt mit einer Zusammenfassung in genau einem Satz und einer Einladung zu „weiter" ab.
-2. **Die harte Regel des Kurses — Vorhersage vor Auflösung.** Jeder Schritt hat eine Stelle, an der eine Frage gestellt wird, bevor die Antwort fällt. Stelle die Frage, dann stoppe ausdrücklich und warte auf die Antwort der Teilnehmenden. Die Auflösung steht weiter unten im jeweiligen Schritt — zeig sie unter keinen Umständen, bevor die Teilnehmenden geantwortet haben. Wenn sie die Vorhersage ausdrücklich überspringen wollen, ist das in Ordnung: Sag kurz, dass der Aha-Moment davon lebt, selbst zu antworten, und lös dann auf.
+2. **Die harte Regel des Kurses — Vorhersage vor Auflösung.** Jeder Schritt hat eine Stelle, an der eine Frage gestellt wird, bevor die Antwort fällt. Stelle die Frage, dann stoppe ausdrücklich und warte auf die Antwort der Teilnehmenden. Die Auflösung steht weiter unten im jeweiligen Schritt — zeig sie unter keinen Umständen, bevor die Teilnehmenden geantwortet haben. Wenn sie die Vorhersage ausdrücklich überspringen wollen, ist das in Ordnung: Sag kurz, dass der Aha-Moment davon lebt, selbst zu antworten, und lös dann auf. Nenn bei jeder Frage, **was** beurteilt wird und **woran** (den Maßstab). Nach der Antwort ordnest du sie zuerst konkret ein — was daran stimmt, was die Auflösung ergänzt —, bevor du auflöst; nie als falsch abkanzeln.
 3. **Zitiere, statt zu kippen.** Die referenzierten Dateien sind teils lang. Lies sie mit Read, aber gib im Chat nur das wörtlich wieder, was für den jeweiligen Punkt zählt — nicht die ganze Datei.
 4. **Nichts ändern, außer ausdrücklich verlangt.** `feature/eval.md`, alles unter `context/` und alles unter `testset/` bleiben unverändert, solange die Teilnehmenden dich nicht ausdrücklich darum bitten. Das ist in Schritt 3 (Prüffrage E4) und Schritt 4 (Regel 8) vorgesehen — dort sagt der Kurs es dir. Überall sonst: nur zeigen, nie ändern.
 5. **Nie etwas verschicken.** Das Feature bleibt in der Testphase, es entstehen ausschließlich Entwürfe.
@@ -73,11 +85,11 @@ Freundliche Grüße
 Ihr Kundenservice NordAntrieb
 ```
 
-**Vorhersage-Frage:** „Würdest du diese Antwort automatisch verschicken lassen?"
+**Vorhersage-Frage:** „Würdest du diese Antwort so an Herrn Reimers schicken lassen, ohne dass vorher ein Mensch draufschaut? Miss sie an den acht Regeln von eben — ja oder nein, mit einem Satz Begründung."
 
 **HALTEPUNKT — warte auf die Antwort, bevor du weitermachst.**
 
-**Auflösung.** Dieselbe Mail wurde dem Feature insgesamt dreimal gegeben. Lies **doc/beispiel-messung/messung1/laeufe/01-lieferverzug-lauf3.md** — im dritten Lauf steht zusätzlich dieser Satz:
+**Auflösung.** Ordne zuerst die Antwort der Teilnehmenden ein: Gemessen an den Regeln ist diese Antwort in Ordnung — wer Ja gesagt hat, hat sie richtig beurteilt. Wer im Schlusssatz („Wir hoffen, dass Ihnen das … weiterhilft") eine Floskel sieht, hat ebenfalls einen Punkt; über solche Grenzfälle lässt sich streiten, das kommt in Schritt 3. Dann der Haken, der nicht in dieser Antwort liegt: Dieselbe Mail wurde dem Feature insgesamt dreimal gegeben. Lies **doc/beispiel-messung/messung1/laeufe/01-lieferverzug-lauf3.md** — im dritten Lauf steht zusätzlich dieser Satz:
 
 ```
 Sobald die Ware unser Haus verlässt, erhalten Sie eine Versandbestätigung.
@@ -103,7 +115,7 @@ Sag ihnen, dass danach zwei Dateien unter **output/\<heutiges Datum\>/auto-reply
 
 ## Schritt 2 — Was heißt gut genug?
 
-**Vorhersage-Frage:** „Wie viele Fehler darf ein Autopilot im Kundenservice machen?"
+**Vorhersage-Frage:** „Wie viele Fehler darf ein Autopilot im Kundenservice machen? Leg dich auf eine Zahl fest, etwa ‚einer von hundert Mails' — eine richtige Zahl gibt es nicht, aber deine eigene brauchst du gleich."
 
 **HALTEPUNKT — warte auf die Antwort, bevor du weitermachst.**
 
@@ -240,7 +252,7 @@ der Antwort nicht vor.
 
 **Die Parallele:** Regel 8 hat Zusagen außerhalb der Regeln schon immer verboten — aber das Feature hat „Zusage" genauso eng gelesen wie der Prüfer in der ersten Messung, nämlich als großes, nachprüfbares Versprechen. Der Prüfer selbst hatte nach Messung 1 nur eine schmale Korrektur vorgeschlagen: den einen Satz zur Versandbestätigung zu verbieten. Das hätte den einen gefundenen Fall behoben, aber nicht die ganze Familie ähnlicher Kleinigkeiten aus Schritt 3. Merksatz: KI-Vorschläge reparieren oft nur das Symptom, das Muster erkennt man selbst.
 
-**Vorhersage-Frage:** „Was passiert, wenn wir Regel 8 verschärfen?"
+**Vorhersage-Frage:** „Was passiert, wenn wir Regel 8 verschärfen? Denk an beide Seiten — die erfundenen Zusagen und die Entscheidung zwischen beantworten und eskalieren — und leg dich fest."
 
 **HALTEPUNKT — warte auf die Antwort, bevor du auflöst.**
 
