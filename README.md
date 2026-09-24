@@ -13,8 +13,8 @@ Dein System-Repo aus Woche 5 und das Spec-und-Eval-Repo aus Woche 4 bleiben unbe
 ## Start
 
 1. ZIP entpacken.
-2. Den entpackten Ordner in VS Code öffnen.
-3. GitHub Copilot Chat im Agent-Modus öffnen.
+2. Den entpackten Ordner in deinem Editor öffnen.
+3. Deinen KI-Agenten in diesem Ordner starten, also den Chat im Agent-Modus öffnen.
 4. `/kurs` eintippen — der Kurs führt dich Schritt für Schritt durch das Special.
 
 Kein Setup, keine Installation nötig. Das Feature verschickt zu keinem Zeitpunkt eine echte Mail.
@@ -22,7 +22,7 @@ Kein Setup, keine Installation nötig. Das Feature verschickt zu keinem Zeitpunk
 ## Ordnerübersicht
 
 ```
-AIEval-CLAAS/
+AIAugmentedPM-AIEval/
 ├── context/         Firmenprofil und die acht Service-Regeln
 ├── feature/         Spec und Eval des Auto-Reply-Features
 ├── testset/         acht Testmails mit Soll-Tabelle
@@ -52,4 +52,4 @@ Das Special vermittelt sechs Einsichten, die für jedes KI-Feature gelten, nicht
 
 Diese sechs Punkte bilden zusammen die Denkweise hinter jeder Eval, egal für welches KI-Feature — das Beispiel NordAntrieb macht sie nur konkret erfahrbar.
 
-Los geht's: Ordner öffnen, Copilot Chat im Agent-Modus starten, `/kurs` eintippen.
+Los geht's: Ordner öffnen, deinen KI-Agenten im Chat starten, `/kurs` eintippen.

@@ -49,7 +49,7 @@ Das sind die Dateien, mit denen du arbeitest:
 | `/ai-eval` | die Messung — du rufst sie in Schritt 5 auf |
 | `doc/beispiel-messung/` | drei echte Messungen, mit denen du deine eigenen Ergebnisse vergleichst |
 
-Öffne `context/service-regeln.md` im Explorer links und lies die acht Regeln. Merk dir besonders die letzte, Regel 8: „Keine Zusagen außerhalb dieser Regeln." Sie wird noch wichtig.
+Öffne `context/service-regeln.md` und lies die acht Regeln. Merk dir besonders die letzte, Regel 8: „Keine Zusagen außerhalb dieser Regeln." Sie wird noch wichtig.
 
 **Reflexion:** Wo gibt es in deinem Arbeitsalltag Anfragen, die zu großen Teilen Routine sind? Woran würdest du festmachen, ob eine KI sie beantworten darf?
 

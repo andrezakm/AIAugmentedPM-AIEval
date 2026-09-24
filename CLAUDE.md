@@ -1,4 +1,4 @@
-# AIEval-CLAAS — Kontext-Regel
+# Special: Evals für AI-Features — Kontext-Regel
 
 Dieses Repo ist ein eigenständiges Special zum Kurs AI-Augmented PM: Es prüft, ob ein KI-Feature verantwortbar automatisch auf Kundenmails von NordAntrieb GmbH (fiktiv) antworten darf. Es ist bewusst getrennt von den Repos der Wochen 4 und 5, damit dort nichts verändert wird. Wer hier arbeitet, bewegt sich also in einer Testumgebung mit fiktiven Firmen, fiktiven Personen und fiktiven Vorgängen.
 
