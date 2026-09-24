@@ -44,7 +44,20 @@ Diese Regeln gelten für den ganzen Kurs, nicht nur für einzelne Schritte:
 
 ## Schritt 1 — Einmal hinsehen beweist nichts
 
-Zeig zuerst eine echte, saubere Antwort des Features. Lies **doc/beispiel-messung/messung1/laeufe/01-lieferverzug-lauf1.md** und zitiere den Antworttext wörtlich — ein Kunde fragt nach dem Stand seiner verspäteten Lieferung:
+### Der Fall
+
+Bevor irgendeine Antwort beurteilt wird, brauchen die Teilnehmenden den Fall. Stell ihn in dieser Reihenfolge vor, knapp und im Gesprächston:
+
+1. **Das Feature.** Es bekommt eine einzelne Kundenmail, manchmal mit einem Block Auftragsdaten aus dem System, und trifft zuerst eine Entscheidung: beantworten oder **eskalieren**, also den Fall an eine zuständige Stelle im Haus weitergeben (etwa Rechtsabteilung oder technischer Support). Erst danach schreibt es einen Antwortentwurf oder eine kurze Notiz für den Menschen, der den Fall übernimmt. Verschickt wird nichts.
+2. **Die Wissensbasis.** Lies **context/service-regeln.md** und fasse die acht Regeln in je einer Zeile zusammen — Form, Ton, Liefertermine nur aus den Auftragsdaten, Rechnungen (Korrektur und Kopie zusagbar, innerhalb von drei Werktagen, keine Beträge oder Gutschriften), Defekt (Fotos und Seriennummer, Austausch erst nach Prüfung), Rückgabe (30 Tage, danach Kulanz; Falschlieferung mit Rücksendenummer), Pflicht-Eskalation, und Regel 8 „Keine Zusagen außerhalb dieser Regeln" im Wortlaut.
+3. **Der Testsatz.** Acht Kundenmails unter **testset/mails/**, in einem Satz aufgezählt: verspätete Lieferung, doppelt berechnete Rechnungsposition, brummender Getriebemotor, Rückgabe nach 45 Tagen, technische Frage zu einem Frequenzumrichter, verärgerte Beschwerde über die dritte Fehllieferung, Produktionsausfall, zwei Fragen in einer Mail. **Öffne dafür nicht testset/README.md** — dort stehen die richtigen Antworten und die Tücken, das würde spätere Aha-Momente vorwegnehmen.
+4. **Die erste Mail.** Lies **testset/mails/01-lieferverzug.md** und zeig sie wörtlich, einschließlich des Blocks „Auftragsdaten (aus dem System)".
+
+**Kurzer Halt:** Frag, ob der Fall klar ist oder ob die Teilnehmenden eine Regel oder eine andere Mail genauer sehen möchten. Geh weiter, sobald sie bereit sind.
+
+### Die erste Antwort
+
+Zeig jetzt eine echte, saubere Antwort des Features auf genau diese Mail. Lies **doc/beispiel-messung/messung1/laeufe/01-lieferverzug-lauf1.md** und zitiere den Antworttext wörtlich:
 
 ```
 Sehr geehrter Herr Reimers,
@@ -70,7 +83,7 @@ Ihr Kundenservice NordAntrieb
 Sobald die Ware unser Haus verlässt, erhalten Sie eine Versandbestätigung.
 ```
 
-Ordne ein: Diese Zusage steht in keiner der acht Service-Regeln (`context/service-regeln.md`) — niemand hat eine automatische Versandbestätigung versprochen, das Feature hat sie sich in diesem einen Lauf einfach ausgedacht. Lauf 1 und Lauf 2 zur selben Mail enthalten den Satz nicht. Genauso bei Mail 03, dem brummenden Getriebemotor: Nur Lauf 1 lockert die Regel zur Seriennummer und bietet bei schwer zugänglichem Typenschild vorerst ein Foto der zugänglichen Stelle als Ersatz an. Jeder dieser Ausrutscher tauchte in genau einem von drei Läufen auf.
+Ordne ein: Diese Zusage steht in keiner der acht Service-Regeln (`context/service-regeln.md`) — niemand hat eine automatische Versandbestätigung versprochen, das Feature hat sie sich in diesem einen Lauf einfach ausgedacht. Weise darauf hin, woher der Satz kommt: Herr Reimers erwähnt in seiner Mail nebenbei, dass er bisher keine Versandbestätigung bekommen hat, und das Feature wollte hilfsbereit darauf eingehen. Lauf 1 und Lauf 2 zur selben Mail enthalten den Satz nicht. Genauso bei Mail 03, dem brummenden Getriebemotor: Nur Lauf 1 lockert die Regel zur Seriennummer und bietet bei schwer zugänglichem Typenschild vorerst ein Foto der zugänglichen Stelle als Ersatz an. Jeder dieser Ausrutscher tauchte in genau einem von drei Läufen auf.
 
 **Kernsatz.** Ein KI-Feature antwortet bei gleicher Eingabe jedes Mal etwas anders — das nennt man **nicht-deterministisch**: anders als ein klassisches Programm, das bei derselben Eingabe garantiert dasselbe liefert, schreibt ein KI-Feature zur selben Mail unterschiedliche Antworten, selbst wenn man es jedes Mal genau gleich fragt. Ein einzelner Blick auf eine Antwort sagt deshalb wenig darüber, ob man dem Feature trauen kann. Gemessen wird deshalb über einen **Testsatz** (eine feste Sammlung von Testfällen mit vorher bekannter richtiger Antwort) und mehrere **Läufe** (dieselbe Mail wird mehrmals hintereinander gegeben) — das Ergebnis ist keine einzelne Note, sondern eine Quote, „x von n".
 
