@@ -26,7 +26,7 @@ AIEval-CLAAS/
 ├── context/         Firmenprofil und die acht Service-Regeln
 ├── feature/         Spec und Eval des Auto-Reply-Features
 ├── testset/         acht Testmails mit Soll-Tabelle
-├── doc/             füllt sich im Verlauf des Specials
+├── doc/             Grafik zur Eval-Schleife und die Beispiel-Messung (drei echte Messungen)
 ├── output/          Lauf-Ergebnisse, nach Datum sortiert
 └── .claude/skills/  die drei Befehle aus der Tabelle unten
 ```

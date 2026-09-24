@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<title>Die Eval-Schleife</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@400;700;800;900&family=Space+Grotesk:wght@400;500;600;700&family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,700;1,9..144,400;1,9..144,700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#0B0B0B; --paper:#F4EFE6; --blue:#1A4FFF; --yellow:#FFD400;
+    --rule:rgba(11,11,11,.16); --mute:rgba(11,11,11,.55);
+    --font-display:"Big Shoulders Display",Impact,sans-serif;
+    --font-serif:"Fraunces",Georgia,serif;
+    --font-sans:"Space Grotesk",-apple-system,sans-serif;
+    --font-mono:ui-monospace,"SF Mono",Menlo,monospace;
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{width:1200px;background:var(--paper);color:var(--ink);font-family:var(--font-sans);
+    -webkit-font-smoothing:antialiased;}
+  .wrap{width:1200px;padding:56px;}
+
+  .eyebrow{display:flex;align-items:center;gap:16px;font-family:var(--font-mono);
+    font-size:17px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--mute);margin-bottom:26px;}
+  .eyebrow .num{color:var(--blue);font-weight:700;}
+  .eyebrow .rule{flex:1;height:1px;background:var(--rule);}
+
+  h1{font-family:var(--font-display);font-weight:900;line-height:.94;letter-spacing:-.01em;
+    font-size:76px;margin:0 0 18px;}
+  h1 em{font-family:var(--font-serif);font-style:italic;font-weight:400;}
+  .subtitle{font-family:var(--font-sans);font-weight:500;font-size:25px;line-height:1.4;
+    color:var(--mute);max-width:80ch;margin:0 0 44px;}
+
+  .diagram{width:1038px;margin:0 auto;}
+  .center{display:flex;justify-content:center;}
+
+  .quer{border:1px solid var(--rule);background:rgba(11,11,11,.03);
+    padding:14px 20px;display:flex;flex-wrap:wrap;align-items:baseline;gap:8px 14px;}
+  .quer .tag{font-family:var(--font-mono);font-size:15px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--blue);}
+  .quer .desc{font-family:var(--font-mono);color:var(--ink);font-size:19px;}
+
+  .artifact{border:1px solid var(--rule);background:rgba(11,11,11,.03);
+    padding:16px 22px;display:inline-flex;flex-direction:column;gap:4px;text-align:center;}
+  .artifact .path{font-family:var(--font-mono);font-weight:700;font-size:22px;color:var(--ink);}
+  .artifact .desc{font-family:var(--font-sans);font-size:18px;color:var(--mute);}
+
+  .arrow-row{display:flex;justify-content:center;padding:10px 0;}
+  .arrow-row .glyph{font-size:32px;color:var(--blue);line-height:1;}
+
+  .skillcard{background:var(--paper);border:1px solid var(--ink);box-shadow:6px 6px 0 var(--ink);
+    padding:20px 26px;}
+  .skillcard .name{font-family:var(--font-mono);font-weight:700;font-size:31px;color:var(--ink);display:block;margin-bottom:10px;}
+  .skillcard .name .slash{color:var(--blue);}
+  .checks{font-family:var(--font-mono);font-size:17px;color:var(--mute);}
+
+  /* Section head — reuses eyebrow look at sub-level */
+  .section-head{display:flex;align-items:center;gap:16px;font-family:var(--font-mono);
+    font-size:17px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--mute);
+    margin:46px 0 22px;}
+  .section-head .num{color:var(--blue);font-weight:700;}
+  .section-head .rule{flex:1;height:1px;background:var(--rule);}
+
+  /* Section 1 — Testsatz × Läufe */
+  .center-row{display:flex;justify-content:center;align-items:center;gap:26px;}
+  .times{font-family:var(--font-display);font-weight:900;font-size:38px;color:var(--blue);}
+  .stat{border:1px solid var(--ink);background:var(--paper);padding:16px 30px;text-align:center;}
+  .stat .stat-label{display:block;font-family:var(--font-mono);font-size:14px;letter-spacing:.08em;
+    text-transform:uppercase;color:var(--mute);margin-bottom:6px;}
+  .stat .stat-value{display:block;font-family:var(--font-display);font-weight:800;font-size:28px;color:var(--ink);}
+
+  /* Section 2 — Leiter */
+  .axis-row{display:flex;justify-content:center;align-items:center;gap:12px;margin-bottom:22px;
+    font-family:var(--font-mono);font-size:15px;letter-spacing:.1em;text-transform:uppercase;color:var(--mute);}
+  .axis-row .glyph{color:var(--blue);font-size:20px;}
+  .ladder{display:flex;justify-content:center;align-items:flex-start;gap:21px;}
+  .rung{width:332px;background:var(--paper);border:1px solid var(--ink);box-shadow:6px 6px 0 var(--ink);
+    padding:20px 22px;}
+  .rung.r2{margin-top:46px;}
+  .rung.r3{margin-top:92px;}
+  .rung-top{display:flex;align-items:center;gap:12px;margin-bottom:12px;}
+  .rung-num{font-family:var(--font-mono);font-weight:700;font-size:17px;color:var(--paper);
+    background:var(--ink);padding:6px 11px;letter-spacing:.04em;}
+  .rung h3{font-family:var(--font-display);font-weight:800;font-size:27px;margin:0;letter-spacing:-.005em;}
+  .rung p{font-family:var(--font-sans);font-size:18px;color:var(--ink);margin:0 0 12px;line-height:1.32;}
+  .rung .example{font-family:var(--font-mono);font-size:15px;color:var(--blue);font-weight:600;}
+  .rung-arrow{align-self:center;font-size:26px;color:var(--blue);line-height:1;padding-top:70px;}
+
+  /* Section 3 — Quote gegen Schwelle */
+  .compare{display:flex;justify-content:center;align-items:stretch;border:1px solid var(--ink);
+    max-width:680px;margin:0 auto;}
+  .compare .col{flex:1;padding:24px 30px;text-align:center;}
+  .compare .col + .col{border-left:1px solid var(--ink);}
+  .compare .label{display:block;font-family:var(--font-mono);font-size:15px;letter-spacing:.08em;
+    text-transform:uppercase;color:var(--mute);margin-bottom:10px;}
+  .compare .value{display:block;font-family:var(--font-display);font-weight:800;font-size:34px;color:var(--ink);}
+
+  /* Section 4 — Entscheidung */
+  .decision{border:2px solid var(--ink);background:var(--paper);padding:28px 36px;text-align:center;
+    margin:0 auto;max-width:840px;}
+  .decision .mark{display:inline-flex;align-items:center;justify-content:center;width:42px;height:42px;
+    background:var(--blue);color:var(--paper);font-family:var(--font-display);font-weight:900;font-size:24px;
+    margin-bottom:14px;}
+  .decision .q{font-family:var(--font-display);font-weight:800;font-size:31px;line-height:1.18;margin:0;}
+  .decision .q em{font-family:var(--font-serif);font-style:italic;font-weight:600;color:var(--blue);}
+
+  .decision-split{display:flex;justify-content:center;gap:38px;align-items:flex-start;margin-top:16px;}
+  .col-nein{width:660px;display:flex;flex-direction:column;align-items:center;gap:12px;}
+  .col-ja{width:340px;display:flex;flex-direction:column;align-items:center;gap:12px;}
+
+  .branch-tag{font-family:var(--font-mono);font-weight:700;font-size:17px;letter-spacing:.1em;
+    text-transform:uppercase;color:var(--mute);}
+  .branch-tag.ja{color:var(--blue);}
+
+  .exitcard{background:var(--paper);border:1px solid var(--ink);box-shadow:6px 6px 0 var(--ink);
+    padding:20px 22px;text-align:center;width:100%;}
+  .exitcard.blue{border-color:var(--blue);}
+  .exitcard .icon{font-size:32px;color:var(--ink);line-height:1;margin-bottom:8px;display:block;}
+  .exitcard.blue .icon{color:var(--blue);}
+  .exitcard h3{font-family:var(--font-display);font-weight:800;font-size:27px;margin:0 0 6px;letter-spacing:-.005em;}
+  .exitcard p{font-family:var(--font-sans);font-size:18px;color:var(--mute);margin:0;line-height:1.32;}
+
+  .two-paths{display:flex;gap:18px;width:100%;}
+  .path-card{flex:1;background:var(--paper);border:1px solid var(--ink);padding:18px 18px;}
+  .path-card h4{font-family:var(--font-display);font-weight:800;font-size:22px;margin:0 0 8px;letter-spacing:-.005em;}
+  .path-card p{font-family:var(--font-sans);font-size:18px;color:var(--ink);margin:0 0 12px;line-height:1.32;}
+  .path-card .path-file{font-family:var(--font-mono);font-size:15px;color:var(--ink);font-weight:700;}
+
+  .endbox{display:flex;justify-content:center;}
+  .endbox .badge{font-family:var(--font-mono);font-weight:700;font-size:24px;color:var(--paper);
+    background:var(--blue);padding:12px 26px;}
+
+  .loop-badge{display:flex;flex-direction:column;align-items:center;gap:3px;border:2px dashed var(--blue);
+    padding:16px 24px;width:100%;}
+  .loop-badge .glyph{font-size:26px;color:var(--blue);line-height:1;}
+  .loop-badge .label{font-family:var(--font-mono);font-size:17px;color:var(--blue);font-weight:700;text-align:center;}
+  .loop-badge .note{font-family:var(--font-mono);font-size:14px;color:var(--mute);text-align:center;}
+
+  .note-line{font-family:var(--font-serif);font-style:italic;font-size:19px;color:var(--mute);
+    text-align:center;margin-top:40px;line-height:1.4;}
+
+  footer{margin-top:48px;padding-top:18px;border-top:1px solid var(--rule);
+    font-family:var(--font-mono);font-size:15px;letter-spacing:.08em;text-transform:uppercase;color:var(--mute);
+    text-align:center;}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="eyebrow"><span class="num">Special</span><span class="rule"></span><span>Evals für KI-Features</span></div>
+
+  <h1>Die Eval-<em>Schleife</em></h1>
+  <p class="subtitle">Ein KI-Feature antwortet jedes Mal etwas anders — deshalb misst man über viele Fälle und Läufe und entscheidet an Schwellen, nicht am Bauchgefühl.</p>
+
+  <div class="diagram">
+
+    <div class="section-head"><span class="num">01</span><span class="rule"></span><span>Testsatz &amp; Läufe</span></div>
+
+    <div class="center-row">
+      <div class="artifact">
+        <span class="path">testset/</span>
+        <span class="desc">8 Kundenmails mit Soll</span>
+      </div>
+      <span class="times">×</span>
+      <div class="stat">
+        <span class="stat-label">Läufe</span>
+        <span class="stat-value">je 3</span>
+      </div>
+    </div>
+
+    <div class="arrow-row"><span class="glyph">↓</span></div>
+
+    <div class="center">
+      <div class="skillcard">
+        <span class="name"><span class="slash">/</span>auto-reply</span>
+        <span class="checks">Feature unter Test — erzeugt 8 × 3 Antworten</span>
+      </div>
+    </div>
+
+    <div class="arrow-row"><span class="glyph">↓</span></div>
+
+    <div class="center">
+      <div class="artifact">
+        <span class="path">24 Antworten</span>
+        <span class="desc">roh, ungeprüft</span>
+      </div>
+    </div>
+
+    <div class="section-head"><span class="num">02</span><span class="rule"></span><span>Prüfen — die einfachste Prüfung zuerst</span></div>
+
+    <div class="axis-row"><span>einfach</span><span class="glyph">→</span><span>aufwendig</span></div>
+
+    <div class="ladder">
+      <div class="rung r1">
+        <div class="rung-top"><span class="rung-num">1</span><h3>Textprüfung</h3></div>
+        <p>Steht es drin? Wörter zählen.</p>
+        <span class="example">Beispiel E1 · Form</span>
+      </div>
+      <div class="rung-arrow">↘</div>
+      <div class="rung r2">
+        <div class="rung-top"><span class="rung-num">2</span><h3>Soll-Vergleich</h3></div>
+        <p>Eine richtige Antwort ist bekannt.</p>
+        <span class="example">E2 / E3 · beantworten oder eskalieren</span>
+      </div>
+      <div class="rung-arrow">↘</div>
+      <div class="rung r3">
+        <div class="rung-top"><span class="rung-num">3</span><h3>KI-Prüfer</h3></div>
+        <p>Eine Ja/Nein-Frage, wo Urteil nötig ist.</p>
+        <span class="example">E4 – E6</span>
+      </div>
+    </div>
+
+    <div class="section-head"><span class="num">03</span><span class="rule"></span><span>Quote gegen Schwelle</span></div>
+
+    <div class="compare">
+      <div class="col">
+        <span class="label">Quote</span>
+        <span class="value">x von n</span>
+      </div>
+      <div class="col">
+        <span class="label">Schwelle</span>
+        <span class="value">fürs Trauen</span>
+      </div>
+    </div>
+
+    <div class="quer" style="max-width:680px;margin:16px auto 0;">
+      <span class="tag">Beispiel</span>
+      <span class="desc">E4 Keine erfundene Zusage · 9 von 15 · Schwelle: keine Ausnahme</span>
+    </div>
+
+    <div class="section-head"><span class="num">04</span><span class="rule"></span><span>Entscheidung</span></div>
+
+    <div class="decision">
+      <span class="mark">?</span>
+      <p class="q">Alle Schwellen erreicht — und <em>Prüfer-Abgleich</em> stimmt?</p>
+    </div>
+
+    <div class="arrow-row"><span class="glyph">↓</span></div>
+
+    <div class="decision-split">
+      <div class="col-nein">
+        <span class="branch-tag">Nein</span>
+        <div class="exitcard">
+          <span class="icon">↩</span>
+          <h3>Fehler ansehen</h3>
+          <p>Antworten wirklich lesen</p>
+        </div>
+        <div class="arrow-row"><span class="glyph">↓</span></div>
+        <div class="two-paths">
+          <div class="path-card">
+            <h4>Prüfer eichen</h4>
+            <p>Stimmt sein Urteil mit deinem? Sonst Prüffrage schärfen.</p>
+            <span class="path-file">feature/eval.md</span>
+          </div>
+          <div class="path-card">
+            <h4>Feature schärfen</h4>
+            <p>Genau eine Stelle ändern: Spec oder Regeln.</p>
+            <span class="path-file">context/service-regeln.md</span>
+          </div>
+        </div>
+        <div class="arrow-row"><span class="glyph">↓</span></div>
+        <div class="loop-badge">
+          <span class="glyph">↺</span>
+          <span class="label">Neu messen und vergleichen</span>
+          <span class="note">zurück zu Schritt 01 — Testsatz &amp; Läufe</span>
+        </div>
+      </div>
+
+      <div class="col-ja">
+        <span class="branch-tag ja">Ja</span>
+        <div class="exitcard blue">
+          <span class="icon">✓</span>
+          <h3>Mensch gibt frei</h3>
+          <p>Die Zahlen erlauben es — entscheiden musst du</p>
+        </div>
+        <div class="arrow-row"><span class="glyph">↓</span></div>
+        <div class="endbox"><span class="badge">Autopilot an</span></div>
+      </div>
+    </div>
+
+    <p class="note-line">Immer nur eine Änderung pro Messung — sonst weißt du nicht, was gewirkt hat.</p>
+
+  </div>
+
+  <footer>überproduct · AI-Augmented PM</footer>
+
+</div>
+</body>
+</html>
